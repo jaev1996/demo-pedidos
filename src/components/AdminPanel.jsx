@@ -1,3 +1,5 @@
+// src/components/AdminPanel.jsx
+import React from 'react';
 import { BarChart3, AlertCircle, Package } from 'lucide-react';
 
 export default function AdminPanel({ orders, setOrders }) {
@@ -19,8 +21,8 @@ export default function AdminPanel({ orders, setOrders }) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center sm:text-left">Panel de Administración</h2>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-gray-800">
+      <h2 className="text-2xl font-bold mb-8 text-center sm:text-left">Panel de Administración</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
         <InfoCard icon={<BarChart3 className="h-8 w-8 text-blue-600" />} label="Total Pedidos" value={stats.total} />
@@ -57,7 +59,7 @@ function InfoCard({ icon, label, value }) {
         {icon}
         <div className="ml-4">
           <p className="text-sm font-medium text-gray-600">{label}</p>
-          <p className="text-2xl font-bold text-gray-900">{value}</p>
+          <p className="text-2xl font-bold text-gray-800">{value}</p>
         </div>
       </div>
     </div>
@@ -68,7 +70,7 @@ function OrderSection({ title, orders, buttonText, buttonColor, onClick }) {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+        <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
       </div>
       <div className="p-6 space-y-4">
         {orders.length === 0 ? (
@@ -77,7 +79,7 @@ function OrderSection({ title, orders, buttonText, buttonColor, onClick }) {
           orders.map(order => (
             <div key={order.id} className={`flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-${buttonColor}-50 rounded-lg gap-4`}>
               <div>
-                <p className="font-medium text-gray-900">#{order.id} - {order.customer}</p>
+                <p className="font-medium text-gray-800">#{order.id} - {order.customer}</p>
                 <p className="text-sm text-gray-600">${order.total.toLocaleString()}</p>
               </div>
               <button

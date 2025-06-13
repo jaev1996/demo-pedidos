@@ -1,6 +1,6 @@
 // src/components/Catalog.jsx
 import React, { useState } from 'react';
-import { Search, ShoppingCart } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { mockParts } from '../constants/mockData';
 
 const ITEMS_PER_PAGE = 8;
@@ -9,6 +9,8 @@ export default function Catalog({ cart, setCart }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
+  const [showToast, setShowToast] = useState(false);
+  const [toastText, setToastText] = useState('');
 
   const categories = ['all', ...new Set(mockParts.map(part => part.category))];
 
@@ -37,10 +39,19 @@ export default function Catalog({ cart, setCart }) {
       }
       return [...prev, { ...part, quantity: 1 }];
     });
+    setToastText(`${part.name} agregado al pedido.`);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 1200);
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-gray-800">
+      {showToast && (
+        <div className="fixed top-6 left-1/2 transform -translate-x-1/2 bg-green-600 text-white text-sm font-medium px-4 py-2 rounded shadow-lg z-50 animate-fade-in-out">
+          {toastText}
+        </div>
+      )}
+
       {/* Filtros */}
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row gap-4">
@@ -50,7 +61,7 @@ export default function Catalog({ cart, setCart }) {
               <input
                 type="text"
                 placeholder="Buscar repuestos..."
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 value={searchTerm}
                 onChange={(e) => {
                   setSearchTerm(e.target.value);
@@ -60,7 +71,7 @@ export default function Catalog({ cart, setCart }) {
             </div>
           </div>
           <select
-            className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             value={selectedCategory}
             onChange={(e) => {
               setSelectedCategory(e.target.value);
@@ -92,8 +103,8 @@ export default function Catalog({ cart, setCart }) {
                 </div>
               </div>
 
-              <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{part.name}</h3>
-              <p className="text-sm text-gray-600 mb-1">{part.brand} - {part.model}</p>
+              <h3 className="font-semibold text-gray-800 mb-2 line-clamp-2">{part.name}</h3>
+              <p className="text-sm text-gray-700 mb-1">{part.brand} - {part.model}</p>
               <p className="text-xl font-bold text-blue-600 mb-4">${part.price.toLocaleString()}</p>
 
               <button
@@ -136,6 +147,18 @@ export default function Catalog({ cart, setCart }) {
           </button>
         </div>
       )}
+
+      <style jsx>{`
+        .animate-fade-in-out {
+          animation: fadeInOut 1.5s ease-in-out forwards;
+        }
+        @keyframes fadeInOut {
+          0% { opacity: 0; transform: translateY(-10px); }
+          20% { opacity: 1; transform: translateY(0); }
+          80% { opacity: 1; transform: translateY(0); }
+          100% { opacity: 0; transform: translateY(-10px); }
+        }
+      `}</style>
     </div>
   );
 }

@@ -32,8 +32,8 @@ export default function CartDrawer({ cart, setCart, onSubmitOrder }) {
 
       {open && (
         <div className="fixed inset-0 bg-black/40 flex items-end sm:items-center justify-center z-50">
-          <div className="bg-white w-full h-[90vh] sm:h-[80vh] max-w-2xl rounded-t-lg sm:rounded-lg shadow-lg flex flex-col overflow-hidden">
-            <div className="flex justify-between items-center px-4 py-3 border-b">
+          <div className="bg-gray-100 w-full h-[90vh] sm:h-[80vh] max-w-2xl rounded-t-lg sm:rounded-lg shadow-lg flex flex-col overflow-hidden text-gray-800">
+            <div className="flex justify-between items-center px-4 py-3 border-b border-gray-300">
               <h3 className="text-lg font-semibold">Pedido actual</h3>
               <button onClick={() => setOpen(false)} className="text-gray-500 hover:text-gray-700">
                 <X className="w-5 h-5" />
@@ -47,7 +47,7 @@ export default function CartDrawer({ cart, setCart, onSubmitOrder }) {
             ) : (
               <div className="flex-1 overflow-y-auto px-4 py-2 space-y-4">
                 {cart.map(item => (
-                  <div key={item.id} className="border rounded p-3">
+                  <div key={item.id} className="border border-gray-300 rounded p-3 bg-white">
                     <div className="flex justify-between items-start">
                       <div>
                         <div className="text-sm font-medium">{item.name}</div>
@@ -75,7 +75,7 @@ export default function CartDrawer({ cart, setCart, onSubmitOrder }) {
             )}
 
             {cart.length > 0 && (
-              <div className="border-t p-4 text-sm">
+              <div className="border-t border-gray-300 p-4 text-sm bg-white">
                 <div className="flex justify-between items-center mb-3">
                   <span className="font-medium">Total:</span>
                   <span className="font-bold text-blue-600 text-lg">${total.toLocaleString()}</span>

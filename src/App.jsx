@@ -33,14 +33,14 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-100 text-gray-800 flex flex-col">
       <Header currentView={currentView} setCurrentView={setCurrentView} userRole={userRole} />
 
       <main className="flex-1 w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+          <div className="bg-gray-200 border border-gray-300 rounded-lg p-4 mb-4">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <span className="text-sm text-blue-800">Modo Demo - Cambiar rol:</span>
+              <span className="text-sm text-gray-700">Modo Demo - Cambiar rol:</span>
               <div className="flex space-x-2">
                 <button
                   onClick={() => setUserRole('seller')}
@@ -59,7 +59,7 @@ export default function App() {
           </div>
 
           {currentView === 'catalog' && <Catalog cart={cart} setCart={setCart} />}
-          {currentView === 'orders' && <Orders orders={orders} setOrders={setOrders} />}
+          {currentView === 'orders' && <Orders orders={orders} setOrders={setOrders} userRole={userRole} />}
           {currentView === 'admin' && userRole === 'admin' && <AdminPanel orders={orders} setOrders={setOrders} />}
         </div>
       </main>
